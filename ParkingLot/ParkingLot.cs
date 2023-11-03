@@ -14,7 +14,9 @@ namespace Day5
         {
             if (ticket2car.ContainsKey(ticket))
             {
-                return ticket2car[ticket];
+                string nowTicket = ticket2car[ticket];
+                ticket2car.Remove(ticket);
+                return nowTicket;
             }
             else
             {
