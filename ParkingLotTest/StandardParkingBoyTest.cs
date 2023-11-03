@@ -20,5 +20,18 @@ namespace ParkingLotTest
 
             Assert.Equal("T-car1", ticket);
         }
+
+        [Fact]
+        public void Should_get_a_car_when_fetch_given_ticket()
+        {
+            ParkingLot parkingLot = new ParkingLot();
+            StandardParkingBoy boy = new StandardParkingBoy(parkingLot);
+            string ticket = boy.Park("car1");
+
+            string car = boy.Fetch(ticket);
+
+            Assert.Equal("car1", car);
+
+        }
     }
 }
