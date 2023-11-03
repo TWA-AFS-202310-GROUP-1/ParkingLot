@@ -19,5 +19,10 @@ namespace Day5
         {
             return this.parkingLot.Park(car);
         }
+
+        public string Fetch(string ticket)
+        {
+            return this.parkingLot.Fetch(ticket);
+        }
     }
 }

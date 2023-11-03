@@ -37,7 +37,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_not_get_a_car_when_fetch_car_given_wrong_ticket_or_without_a_ticket()
+        public void Should_not_get_a_car_and_return_error_message_when_fetch_car_given_wrong_ticket_or_without_a_ticket()
         {
             ParkingLot parkingLot = new ParkingLot();
             string ticket1 = parkingLot.Park("car1");
