@@ -54,5 +54,20 @@ namespace ParkingLotTest
 
             Assert.Equal("no car", car2);
         }
+
+        [Fact]
+        public void Should_have_no_ticket_when_prakingplot_is_full()
+        {
+            ParkingLot parkingLot = new ParkingLot();
+
+            for (int i = 0; i < 10; i++)
+            {
+                parkingLot.Park("car" + i);
+            }
+
+            string ticket = parkingLot.Park("newcar");
+            string car = parkingLot.Fetch(ticket);
+            Assert.Equal("no car", car);
+        }
     }
 }

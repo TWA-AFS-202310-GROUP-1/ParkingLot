@@ -12,6 +12,11 @@ namespace Day5
         private Dictionary<string, string> ticket2car = new Dictionary<string, string>();
         public string Fetch(string ticket)
         {
+            if (ticket == null)
+            {
+                return null;
+            }
+
             if (ticket2car.ContainsKey(ticket))
             {
                 string nowTicket = ticket2car[ticket];
@@ -20,16 +25,23 @@ namespace Day5
             }
             else
             {
-                return "no car";
+                throw new WrongTicketException();
             }
         }
 
         public string Park(string car)
         {
-            this.car = car;
-            string ticket = "T-" + car;
-            ticket2car.Add(ticket, car);
-            return ticket;
+            if (ticket2car.Count() < 10)
+            {
+                this.car = car;
+                string ticket = "T-" + car;
+                ticket2car.Add(ticket, car);
+                return ticket;
+            }
+            else
+            {
+                return " ";
+            }
         }
     }
 }
