@@ -62,5 +62,19 @@ namespace ParkingLotTest
             WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => parkingLot.Fetch(ticket1));
             Assert.Equal("Unrecognized parking ticket.", wrongTicketException.Message);
         }
+
+        [Fact]
+        public void Should_have_no_ticket_when_prakingplot_is_full()
+        {
+            ParkingLot parkingLot = new ParkingLot();
+
+            for (int i = 0; i < 10; i++)
+            {
+                parkingLot.Park("car" + i);
+            }
+
+            WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => parkingLot.Park("newcar"));
+            Assert.Equal("No available position.", wrongTicketException.Message);
+        }
     }
 }
