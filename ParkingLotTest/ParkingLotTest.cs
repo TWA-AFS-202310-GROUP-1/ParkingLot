@@ -1,10 +1,13 @@
 ﻿using Xunit;
 using ParkingLotManagement;
+using System.Collections.Generic;
 
 namespace ParkingLotTest
 {
     public class ParkingLotTest
     {
+        private object tickets;
+
         [Fact]
         public void Should_get_the_same_car_when_fetch_car_by_ticket()
         {
@@ -77,6 +80,31 @@ namespace ParkingLotTest
             //Then
             Assert.Equal("car", car);
             Assert.Null(noCar);
+        }
+
+        [Fact]
+        public void Should_get_null_when_no_parking_lot_left()
+        {
+            //Given
+            int parkingLotCapicity = 20;
+            ParkingLot parkingLot = new ParkingLot();
+            parkingLot.ParkingCapicity = parkingLotCapicity;
+            List<string> tickets = new List<string>();
+            for (int i = 0; i < parkingLotCapicity; i++)
+            {
+                string ticket = parkingLot.Park("car" + i.ToString());
+                tickets.Add(ticket);
+            }
+
+            //When
+            string newTicket = parkingLot.Park("newCar");
+            //Then
+            for (int i = 0; i < parkingLotCapicity; i++)
+            {
+                Assert.NotNull(tickets[i]);
+            }
+
+            Assert.Null(newTicket);
         }
     }
 }
