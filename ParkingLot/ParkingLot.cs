@@ -9,19 +9,18 @@ namespace Day5
     public class ParkingLot
     {
         private string car;
-        //private Dictionary<string, string> ticket2car = new Dictionary<string, string>();
+        private Dictionary<string, string> ticket2car = new Dictionary<string, string>();
         public string Fetch(string ticket)
         {
-            return car;
-            //ticket2car[ticket] = car;
+            return ticket2car[ticket];
         }
 
         public string Park(string car)
         {
             this.car = car;
-/*            string ticket = "T-" + car;
-            ticket2car.Add(ticket, car);*/
-            return "ticket";
+            string ticket = "T-" + car;
+            ticket2car.Add(ticket, car);
+            return ticket;
         }
     }
 }
