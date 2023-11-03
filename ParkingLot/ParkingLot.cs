@@ -25,7 +25,7 @@ namespace Day5
             }
             else
             {
-                throw new WrongTicketException();
+                throw new WrongTicketException("Unrecognized parking ticket.");
             }
         }
 
@@ -40,7 +40,7 @@ namespace Day5
             }
             else
             {
-                return " ";
+                throw new WrongTicketException("No available position.");
             }
         }
     }
