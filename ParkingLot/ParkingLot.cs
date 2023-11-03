@@ -12,7 +12,14 @@ namespace Day5
         private Dictionary<string, string> ticket2car = new Dictionary<string, string>();
         public string Fetch(string ticket)
         {
-            return ticket2car[ticket];
+            if (ticket2car.ContainsKey(ticket))
+            {
+                return ticket2car[ticket];
+            }
+            else
+            {
+                return "no car";
+            }
         }
 
         public string Park(string car)
