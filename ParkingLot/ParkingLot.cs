@@ -13,7 +13,14 @@ namespace Day5
 
         public string Fetch(string ticket)
         {
-            return ticket2Car.ContainsKey(ticket) ? ticket2Car[ticket] : string.Empty;
+            string car = string.Empty;
+            if (ticket2Car.ContainsKey(ticket))
+            {
+                car = ticket2Car[ticket];
+                ticket2Car.Remove(ticket);
+            }
+
+            return car;
         }
 
         public string Park(string car)
