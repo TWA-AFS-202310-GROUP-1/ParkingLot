@@ -14,13 +14,18 @@ namespace Day5
 
         public string Fetch(string ticket)
         {
-            string car = string.Empty;
-            if (ticket2Car.ContainsKey(ticket))
+            if (ticket == string.Empty)
             {
-                car = ticket2Car[ticket];
-                ticket2Car.Remove(ticket);
+                return string.Empty;
             }
 
+            if (!ticket2Car.ContainsKey(ticket))
+            {
+                throw new WrongTicketException("Unrecognized parking ticket");
+            }
+
+            string car = ticket2Car[ticket];
+            ticket2Car.Remove(ticket);
             return car;
         }
 

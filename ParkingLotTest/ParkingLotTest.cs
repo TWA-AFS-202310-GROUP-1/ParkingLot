@@ -42,11 +42,11 @@ namespace ParkingLotTest
             ParkingLot parkingLot = new ParkingLot();
             string ticket1 = parkingLot.Park("car1");
 
-            string car1 = parkingLot.Fetch("T-car2");
             string car2 = parkingLot.Fetch(string.Empty);
 
-            Assert.Equal(string.Empty, car1);
             Assert.Equal(string.Empty, car2);
+            WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => parkingLot.Fetch("WRONG"));
+            Assert.Equal("Unrecognized parking ticket", wrongTicketException.Message);
         }
 
         [Fact]
@@ -56,9 +56,8 @@ namespace ParkingLotTest
             string ticket1 = parkingLot.Park("car1");
             string car1 = parkingLot.Fetch(ticket1);
 
-            string sameCar = parkingLot.Fetch(ticket1);
-
-            Assert.Equal(string.Empty, sameCar);
+            WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => parkingLot.Fetch(ticket1));
+            Assert.Equal("Unrecognized parking ticket", wrongTicketException.Message);
         }
 
         [Fact]
