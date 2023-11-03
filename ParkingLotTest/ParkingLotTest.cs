@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -58,6 +59,20 @@ namespace ParkingLotTest
             string sameCar = parkingLot.Fetch(ticket1);
 
             Assert.Equal(string.Empty, sameCar);
+        }
+
+        [Fact]
+        public void Should_not_park_car_when_no_position()
+        {
+            ParkingLot parkingLot = new ParkingLot();
+            for (int i = 0; i < 10; i++)
+            {
+                string ticket = parkingLot.Park("car" + i.ToString());
+            }
+
+            string ticket11 = parkingLot.Park("car11");
+
+            Assert.Equal(string.Empty, ticket11);
         }
     }
 }
