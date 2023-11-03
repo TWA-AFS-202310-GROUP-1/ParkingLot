@@ -69,9 +69,8 @@ namespace ParkingLotTest
                 string ticket = parkingLot.Park("car" + i.ToString());
             }
 
-            string ticket11 = parkingLot.Park("car11");
-
-            Assert.Equal(string.Empty, ticket11);
+            NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => parkingLot.Park("new car"));
+            Assert.Equal("No available position.", noPositionException.Message);
         }
     }
 }

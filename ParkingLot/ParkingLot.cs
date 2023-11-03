@@ -37,8 +37,10 @@ namespace Day5
                 ticket2Car.Add(ticket, car);
                 return ticket;
             }
-
-            return string.Empty;
+            else
+            {
+                throw new NoPositionException("No available position.");
+            }
         }
     }
 }
