@@ -78,15 +78,16 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot(3);
+
+            //when
             for (int i = 0; i < 3; i++)
             {
                 string tempTicket = parkingLot.Park($"car{i}");
                 Assert.Equal($"-car{i}", tempTicket);
             }
 
-            //when
-
             //then
+            Assert.Equal("car0 car1 car2", parkingLot.ShowAllCars());
             Assert.Throws<NoPositionException>(() => parkingLot.Park("car3"));
         }
     }

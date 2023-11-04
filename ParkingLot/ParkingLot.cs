@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class ParkingLot
     {
@@ -51,6 +52,38 @@
             {
                 throw new NoPositionException("No available position.");
             }
+        }
+
+        public bool IsAnyPositionAvailable()
+        {
+            if (ticketsToCars.Count < capacity)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsCarParkedHere(string ticket)
+        {
+            if (ticketsToCars.ContainsKey(ticket))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public string ShowAllCars()
+        {
+            List<string> list = new List<string>();
+            list = ticketsToCars.Select(x => x.Value).ToList();
+
+            return string.Join(" ", list);
         }
     }
 }

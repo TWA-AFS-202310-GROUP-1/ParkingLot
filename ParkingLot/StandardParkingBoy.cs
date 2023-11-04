@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,20 +10,53 @@ namespace ParkingLot
 {
     public class StandardParkingBoy
     {
-        private ParkingLot parkingLot;
+        private List<ParkingLot> parkingLots = new List<ParkingLot>();
         public StandardParkingBoy()
         {
-            parkingLot = new ParkingLot();
+            parkingLots.Add(new ParkingLot());
+        }
+
+        public StandardParkingBoy(List<ParkingLot> parkingLots)
+        {
+            this.parkingLots = parkingLots;
         }
 
         public string Park(string car)
         {
-            return parkingLot.Park(car);
+            for (int i = 0; i < parkingLots.Count; i++)
+            {
+                if (parkingLots[i].IsAnyPositionAvailable())
+                {
+                    return parkingLots[i].Park(car);
+                }
+            }
+
+            throw new NoPositionException();
         }
 
         public string Fetch(string ticket)
         {
-            return parkingLot.FetchCar(ticket);
+            if (ticket == null)
+            {
+                throw new UnvalidTicketException("Unrecognized parking ticket.");
+            }
+            else
+            {
+                for (int i = 0; i < parkingLots.Count; i++)
+                {
+                    if (parkingLots[i].IsCarParkedHere(ticket))
+                    {
+                        return parkingLots[i].FetchCar(ticket);
+                    }
+                }
+
+                throw new UnvalidTicketException();
+            }
+        }
+
+        public string ShowAllCars()
+        {
+            return string.Join(" | ", parkingLots.Select(x => x.ShowAllCars()).ToList());
         }
     }
 }
