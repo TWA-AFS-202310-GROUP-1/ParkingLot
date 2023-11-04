@@ -2,6 +2,7 @@ namespace ParkingLotTest
 {
     using Microsoft.VisualBasic;
     using ParkingLotSystem;
+    using System;
     using System.IO;
     using System.Net.Sockets;
     using Xunit;
@@ -37,27 +38,6 @@ namespace ParkingLotTest
             Assert.Equal("Car2", car2);
         }
 
-        [Fact]
-        public void Should_return_nothing_when_fetch_given_a_wrong_ticket()
-        {
-            var parkingLot = new ParkingLot();
-            var ticket = parkingLot.Park("Car1");
-            var wrongTicket = "wrongticket";
-            string car = parkingLot.Fetch(wrongTicket);
-            Assert.Null(car);
-
-        }
-
-        [Fact]
-        public void Should_return_nothing_when_fetch_with_a_used_ticket()
-        {
-            var parkingLot = new ParkingLot();
-            var ticket = parkingLot.Park("Car1");
-            string car = parkingLot.Fetch(ticket);
-            string carExpectednull = parkingLot.Fetch(ticket);
-            Assert.Equal("Car1", car);
-            Assert.Null(carExpectednull);
-        }
 
         [Fact]
         public void Should_return_nothing_when_capacity_is_full()
@@ -89,12 +69,23 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_return_null_when_fetch_with_null_ticket()
+        public void Should_return_correct_message_when_fetch_with_a_wrong_ticket()
         {
             var parkingLot = new ParkingLot();
-            var ticket1 = parkingLot.Park("Car1");
-            var car = parkingLot.Fetch(null);
-            Assert.Null(car);
+            var ticket = parkingLot.Park("Car1");
+            var wrongTicket = "wrongticket";
+            var exception = Assert.Throws<WrongTicketException>(() => parkingLot.Fetch("wrongticket"));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
+        }
+
+        [Fact]
+        public void FetchCar_ShouldThrowException_WhenTicketHasBeenUsed()
+        {
+            var parkingLot = new ParkingLot();
+            var ticket = parkingLot.Park("Car1");
+            parkingLot.Fetch(ticket); 
+            var exception = Assert.Throws<WrongTicketException>(() => parkingLot.Fetch(ticket));
+            Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
     }
 }

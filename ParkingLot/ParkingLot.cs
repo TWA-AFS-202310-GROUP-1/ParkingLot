@@ -26,15 +26,14 @@ namespace ParkingLotSystem
         }
         public string Fetch(string ticket)
         {
-            if(ticket !=null && ticketCarPairs.ContainsKey(ticket))
+            if(ticket == null || !ticketCarPairs.ContainsKey(ticket))
             {
-                string car = ticketCarPairs[ticket];
-                ticketCarPairs.Remove(ticket);
-                parkedCars.Remove(car);
-                return car;
-            }
-            return null;
-            
+                throw new WrongTicketException("Unrecognized parking ticket.");
+            }           
+            string car = ticketCarPairs[ticket];
+            ticketCarPairs.Remove(ticket);
+            parkedCars.Remove(car);
+            return car; 
         }
         private string GenerateTicket()
         {
