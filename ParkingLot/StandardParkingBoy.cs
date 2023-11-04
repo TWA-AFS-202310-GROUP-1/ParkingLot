@@ -39,13 +39,24 @@ namespace ParkingLotManagement
         public string Park(string car)
         {
             this.SearchLot();
-            return currentLot.Park(car);
+            return currentLot.Park(car) + "," + parkingLots.IndexOf(this.currentLot).ToString();
         }
 
-        public string Fetch(string ticket)
+        public string? Fetch(string ticket)
         {
-            this.SearchLot();
-            return this.currentLot.Fetch(ticket);
+            if (ticket == null)
+            {
+                return null;
+            }
+
+            if (!ticket.Contains(","))
+            {
+                throw new WrongTicketException("Unrecognized parking ticket.");
+            }
+
+            string[] tickets = ticket.Split(',');
+            int indexOfLot = int.Parse(tickets[1]);
+            return parkingLots[indexOfLot].Fetch(tickets[0]);
         }
     }
 }
