@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
@@ -29,9 +30,22 @@ namespace Day5
             }
         }
 
-/*        public string StandardFetch(string ticket) 
+        public string StandardFetch(string ticket)
         {
-            
-        }*/
+            string[] ticketParts = ticket.Split('-');
+            string nowTicket = $"{ticketParts[0]}-{ticketParts[1]}";
+            if (ticketParts[3] == "parkingLot1")
+            {
+                return parkingLot1.Fetch(nowTicket);
+            }
+            else if (ticketParts[3] == "parkingLot2")
+            {
+                return parkingLot2.Fetch(nowTicket);
+            }
+            else
+            {
+                return "11";
+            }
+        }
     }
 }

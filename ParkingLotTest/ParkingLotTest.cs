@@ -64,7 +64,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_have_no_ticket_when_prakingplot_is_full()
+        public void Should_have_no_ticket_when_parkinglot_is_full()
         {
             ParkingLot parkingLot = new ParkingLot();
 
@@ -130,7 +130,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_have_no_ticket_by_parkingboy_when_prakingplot_is_full()
+        public void Should_have_no_ticket_by_parkingboy_when_parkinglot_is_full()
         {
             ParkingBoy parkingBoy = new ParkingBoy();
 
@@ -144,7 +144,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_park_into_first_parkinglot_when_first_prakingplot_is_not_full()
+        public void Should_park_into_first_parkinglot_when_first_parkinglot_is_not_full()
         {
             ParkingLot parkingLot1 = new ParkingLot();
             ParkingLot parkingLot2 = new ParkingLot();
@@ -156,7 +156,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_park_into_second_parkinglot_when_first_prakingplot_is_full()
+        public void Should_park_into_second_parkinglot_when_first_parkinglot_is_full()
         {
             ParkingLot parkingLot1 = new ParkingLot();
             ParkingLot parkingLot2 = new ParkingLot();
@@ -170,6 +170,26 @@ namespace ParkingLotTest
             string ticket = standardParkingBoy.StandardPark("newcar");
 
             Assert.Equal("T-newcar-in-parkingLot2", ticket);
+        }
+
+        [Fact]
+        public void Should_fetch_right_ticket_when_different_parkinglot_has_cars()
+        {
+            ParkingLot parkingLot1 = new ParkingLot();
+            ParkingLot parkingLot2 = new ParkingLot();
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+
+            string ticket1 = standardParkingBoy.StandardPark("car1");
+            for (int i = 2; i < 11; i++)
+            {
+                standardParkingBoy.StandardPark("car" + i);
+            }
+
+            string ticket2 = standardParkingBoy.StandardPark("car2");
+            string nowticket1 = standardParkingBoy.StandardFetch(ticket1);
+            string nowticket2 = standardParkingBoy.StandardFetch(ticket2);
+            Assert.Equal("car1", nowticket1);
+            Assert.Equal("car2", nowticket2);
         }
     }
 }
