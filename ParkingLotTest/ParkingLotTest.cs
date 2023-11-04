@@ -87,8 +87,7 @@ namespace ParkingLotTest
         {
             //Given
             int parkingLotCapacity = 20;
-            ParkingLot parkingLot = new ParkingLot();
-            parkingLot.ParkingCapicity = parkingLotCapacity;
+            ParkingLot parkingLot = new ParkingLot(parkingLotCapacity);
 
             //When
             List<string> tickets = new List<string>();

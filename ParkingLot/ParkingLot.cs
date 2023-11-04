@@ -12,13 +12,17 @@ namespace ParkingLotManagement
         private Dictionary<string, string> ticket2Car = new Dictionary<string, string>();
         private int parkCount = 0;
         private List<string> usedTickets = new List<string>();
-        private int parkingCapicity = 10;
+        private int parkingCapicity;
         private int parkTimes = 0;
 
-        public int ParkingCapicity
+        public ParkingLot()
         {
-            get { return this.parkingCapicity; }
-            set { this.parkingCapicity = value; }
+            this.parkingCapicity = 10;
+        }
+
+        public ParkingLot(int parkingCapicity)
+        {
+            this.parkingCapicity = parkingCapicity;
         }
 
         public string? Fetch(string? ticket)
