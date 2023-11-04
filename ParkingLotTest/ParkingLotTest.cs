@@ -13,7 +13,9 @@ namespace ParkingLotTest
         public void Should_return_ticket_when_park_car()
         {
             var parkingLot = new ParkingLot();
+
             var ticket = parkingLot.Park("Car1");
+
             Assert.NotNull(ticket);
         }
 
@@ -22,7 +24,9 @@ namespace ParkingLotTest
         {
             var parkingLot = new ParkingLot();
             var ticket = parkingLot.Park("Car1");
+
             string car = parkingLot.Fetch(ticket);
+
             Assert.Equal("Car1", car);
         }
 
@@ -32,8 +36,10 @@ namespace ParkingLotTest
             var parkingLot = new ParkingLot();
             var ticket1 = parkingLot.Park("Car1");
             var ticket2 = parkingLot.Park("Car2");
+
             string car1 = parkingLot.Fetch(ticket1);
             string car2 = parkingLot.Fetch(ticket2);
+
             Assert.Equal("Car1", car1);
             Assert.Equal("Car2", car2);
         }
@@ -42,7 +48,9 @@ namespace ParkingLotTest
         public void Should_return_null_when_park_given_null()
         {
             var parkingLot = new ParkingLot();
+
             var ticket = parkingLot.Park(null);
+
             Assert.Null(ticket);
         }
 
@@ -51,7 +59,9 @@ namespace ParkingLotTest
         {
             var parkingLot = new ParkingLot();
             var ticket1 = parkingLot.Park("Car1");
+
             var ticket2 = parkingLot.Park("Car1");
+
             Assert.Null(ticket2);
         }
 
@@ -61,7 +71,9 @@ namespace ParkingLotTest
             var parkingLot = new ParkingLot();
             var ticket = parkingLot.Park("Car1");
             var wrongTicket = "wrongticket";
+
             var exception = Assert.Throws<WrongTicketException>(() => parkingLot.Fetch("wrongticket"));
+
             Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
 
@@ -71,7 +83,9 @@ namespace ParkingLotTest
             var parkingLot = new ParkingLot();
             var ticket = parkingLot.Park("Car1");
             parkingLot.Fetch(ticket); 
+
             var exception = Assert.Throws<WrongTicketException>(() => parkingLot.Fetch(ticket));
+
             Assert.Equal("Unrecognized parking ticket.", exception.Message);
         }
 
@@ -83,7 +97,9 @@ namespace ParkingLotTest
             {
                 parkingLot.Park("car" + i);
             }
+
             var exception = Assert.Throws<NoPositionException>(() => parkingLot.Park("Car10"));
+
             Assert.Equal("No available position.", exception.Message);
         }
     }
