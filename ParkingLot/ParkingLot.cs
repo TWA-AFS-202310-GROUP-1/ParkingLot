@@ -7,7 +7,7 @@
     {
         private Dictionary<string, string> ticketsToCars = new Dictionary<string, string>();
 
-        private int capacity = 20;
+        private int capacity = 10;
 
         public ParkingLot()
         {
