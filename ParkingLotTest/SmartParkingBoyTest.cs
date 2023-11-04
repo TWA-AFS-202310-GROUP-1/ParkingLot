@@ -64,11 +64,36 @@ namespace ParkingLotTest
         public void Should_get_reminder_when_fetch_car_by_wrong_ticket(string wrongTicket)
         {
             //Given
-            ParkingLot parkingLot = new ParkingLot();
+            List<ParkingLot> parkingLot = new List<ParkingLot>(new ParkingLot[2]
+           {
+                new ParkingLot(1),
+                new ParkingLot(10),
+           });
             SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot);
 
             //When
             WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(wrongTicket));
+
+            //Then
+            Assert.Equal("Unrecognized parking ticket.", wrongTicketException.Message);
+        }
+
+        [Theory]
+        [InlineData("car")]
+        public void Should_get_reminder_when_fetch_car_with_used_ticket(string carName)
+        {
+            //Given
+            List<ParkingLot> parkingLot = new List<ParkingLot>(new ParkingLot[2]
+           {
+                new ParkingLot(1),
+                new ParkingLot(10),
+           });
+            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot);
+
+            //When
+            string ticket = parkingBoy.Park(carName);
+            string car = parkingBoy.Fetch(ticket);
+            WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(ticket));
 
             //Then
             Assert.Equal("Unrecognized parking ticket.", wrongTicketException.Message);
