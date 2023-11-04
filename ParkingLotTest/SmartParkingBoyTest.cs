@@ -29,5 +29,34 @@ namespace ParkingLotTest
             Assert.Equal(2, parkingLot[0].GetParkingCapicity());
             Assert.Equal(4, parkingLot[1].GetParkingCapicity());
         }
+
+        [Theory]
+        [InlineData("car1", "car2")]
+        public void Should_get_right_car_when_parked_in_two_parkinglots(string car1Name, string car2Name)
+        {
+            //Given
+            List<ParkingLot> parkingLot = new List<ParkingLot>(new ParkingLot[2]
+            {
+                new ParkingLot(1),
+                new ParkingLot(10),
+            });
+            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot);
+
+            //When
+            string ticket1 = parkingBoy.Park(car1Name);
+            string ticket2 = parkingBoy.Park(car2Name);
+            int capacityParkingLot1 = parkingLot[0].GetParkingCapicity();
+            int capacityParkingLot2 = parkingLot[1].GetParkingCapicity();
+            string car1 = parkingBoy.Fetch(ticket1);
+            string car2 = parkingBoy.Fetch(ticket2);
+
+            //Then
+            Assert.Equal(1, capacityParkingLot1);
+            Assert.Equal(8, capacityParkingLot2);
+            Assert.Equal("car1", car1);
+            Assert.Equal("car2", car2);
+            Assert.Equal(1, parkingLot[0].GetParkingCapicity());
+            Assert.Equal(10, parkingLot[1].GetParkingCapicity());
+        }
     }
 }
