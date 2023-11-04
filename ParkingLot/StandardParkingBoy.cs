@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Day5
@@ -32,6 +33,13 @@ namespace Day5
 
         public string StandardFetch(string ticket)
         {
+            string pattern = @"^T-[a-zA-Z0-9]+-in-parkingLot[0-9]+$"; // 正则表达式模式
+
+            if (!Regex.IsMatch(ticket, pattern))
+            {
+                throw new WrongTicketException("Unrecognized parking ticket.");
+            }
+
             string[] ticketParts = ticket.Split('-');
             string nowTicket = $"{ticketParts[0]}-{ticketParts[1]}";
             if (ticketParts[3] == "parkingLot1")
@@ -44,7 +52,7 @@ namespace Day5
             }
             else
             {
-                return "11";
+                throw new WrongTicketException("Unrecognized parking ticket.");
             }
         }
     }
