@@ -116,5 +116,26 @@ namespace ParkingLotTest
             //Then
             Assert.Null(car);
         }
+
+        [Theory]
+        [InlineData("car1", "car2", "car3")]
+        public void Should_get_reminder_when_two_parkinglots_both_unavailable(string car1Name, string car2Name, string car3Name)
+        {
+            //Given
+            List<ParkingLot> parkingLot = new List<ParkingLot>(new ParkingLot[2]
+            {
+                new ParkingLot(1),
+                new ParkingLot(1),
+            });
+            SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingLot);
+
+            //When
+            string ticket1 = parkingBoy.Park(car1Name);
+            string ticket2 = parkingBoy.Park(car2Name);
+            NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => parkingBoy.Park(car3Name));
+
+            //Then
+            Assert.Equal("No available position.", noPositionException.Message);
+        }
     }
 }
