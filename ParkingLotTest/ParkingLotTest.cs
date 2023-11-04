@@ -57,5 +57,17 @@ namespace ParkingLotTest
             Assert.Equal("Car1", car);
             Assert.Null(carExpectednull);
         }
+
+        [Fact]
+        public void Should_return_nothing_when_capacity_is_full()
+        {
+            var parkingLot = new ParkingLot();
+            for (int i = 0; i < 10; i++)
+            {
+                parkingLot.Park("car" + i);
+            }
+            string ticket = parkingLot.Park("car10");
+            Assert.Null(ticket);
+        }
     }
 }

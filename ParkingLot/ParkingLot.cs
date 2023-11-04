@@ -8,13 +8,18 @@ namespace ParkingLotSystem
 
     public class ParkingLot
     {
+        private readonly int _capacity = 10;
         private Dictionary<string, string> ticketCarPairs = new Dictionary<string, string>();
 
         public string Park(string car)
         {
-            string ticket = GenerateTicket();
-            ticketCarPairs.Add(ticket, car);
-            return ticket;
+            if (ticketCarPairs.Count < 10)
+            {
+                string ticket = GenerateTicket();
+                ticketCarPairs.Add(ticket, car);
+                return ticket;
+            }
+            return null;            
         }
         public string Fetch(string ticket)
         {
