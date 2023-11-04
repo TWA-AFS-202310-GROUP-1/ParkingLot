@@ -1,6 +1,7 @@
 namespace ParkingLotTest
 {
     using ParkingLotSystem;
+    using System.Net.Sockets;
     using Xunit;
 
     public class ParkingLotTest
@@ -22,6 +23,16 @@ namespace ParkingLotTest
             Assert.Equal("Car1", car);
         }
 
-             
+        [Fact]
+        public void Should_return_right_car_when_fetch_two_cars()
+        {
+            var parkingLot = new ParkingLot();
+            var ticket1 = parkingLot.Park("Car1");
+            var ticket2 = parkingLot.Park("Car2");
+            string car1 = parkingLot.Fetch(ticket1);
+            string car2 = parkingLot.Fetch(ticket2);
+            Assert.Equal("Car1", car1);
+            Assert.Equal("Car2", car2);
+        }
     }
 }
