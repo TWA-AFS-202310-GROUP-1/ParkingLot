@@ -9,6 +9,10 @@ namespace ParkingLotManagement
     public class SmartParkingBoy : StandardParkingBoy
     {
         private List<ParkingLot> parkingLots = new List<ParkingLot>();
+        public SmartParkingBoy(ParkingLot parkingLot) : base(parkingLot)
+        {
+        }
+
         public SmartParkingBoy(List<ParkingLot> parkingLots) : base(parkingLots)
         {
             this.parkingLots = parkingLots;
