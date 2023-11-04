@@ -8,25 +8,29 @@ namespace ParkingLotSystem
 
     public class ParkingLot
     {
-        private readonly int _capacity = 10;
+        private readonly int capacity = 10;
         private Dictionary<string, string> ticketCarPairs = new Dictionary<string, string>();
+        private HashSet<string> parkedCars = new HashSet<string>();
 
         public string Park(string car)
         {
-            if (ticketCarPairs.Count < 10)
+            if(car == null) return null;
+            if (ticketCarPairs.Count < capacity && !parkedCars.Contains(car))
             {
                 string ticket = GenerateTicket();
                 ticketCarPairs.Add(ticket, car);
+                parkedCars.Add(car);
                 return ticket;
             }
             return null;            
         }
         public string Fetch(string ticket)
         {
-            if(ticketCarPairs.ContainsKey(ticket))
+            if(ticket !=null && ticketCarPairs.ContainsKey(ticket))
             {
                 string car = ticketCarPairs[ticket];
                 ticketCarPairs.Remove(ticket);
+                parkedCars.Remove(car);
                 return car;
             }
             return null;

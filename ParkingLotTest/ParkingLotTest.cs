@@ -1,5 +1,6 @@
 namespace ParkingLotTest
 {
+    using Microsoft.VisualBasic;
     using ParkingLotSystem;
     using System.IO;
     using System.Net.Sockets;
@@ -68,6 +69,32 @@ namespace ParkingLotTest
             }
             string ticket = parkingLot.Park("car10");
             Assert.Null(ticket);
+        }
+
+        [Fact]
+        public void Should_return_null_when_park_given_null()
+        {
+            var parkingLot = new ParkingLot();
+            var ticket = parkingLot.Park(null);
+            Assert.Null(ticket);
+        }
+
+        [Fact]
+        public void Should_return_null_when_park_given_a_parked_car()
+        {
+            var parkingLot = new ParkingLot();
+            var ticket1 = parkingLot.Park("Car1");
+            var ticket2 = parkingLot.Park("Car1");
+            Assert.Null(ticket2);
+        }
+
+        [Fact]
+        public void Should_return_null_when_fetch_with_null_ticket()
+        {
+            var parkingLot = new ParkingLot();
+            var ticket1 = parkingLot.Park("Car1");
+            var car = parkingLot.Fetch(null);
+            Assert.Null(car);
         }
     }
 }
