@@ -41,7 +41,7 @@ namespace ParkingLotManagement
         {
             if (this.parkTimes == parkingCapicity)
             {
-                return null;
+                throw new NoPositionException("No available position.");
             }
 
             parkCount++;

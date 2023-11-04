@@ -6,8 +6,6 @@ namespace ParkingLotTest
 {
     public class ParkingLotTest
     {
-        private object tickets;
-
         [Theory]
         [InlineData("car")]
         public void Should_get_the_same_car_when_fetch_car_by_ticket(string carName)
@@ -85,7 +83,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_get_null_when_no_parking_lot_left()
+        public void Should_get_reminder_when_no_parking_lot_left()
         {
             //Given
             int parkingLotCapacity = 20;
@@ -100,7 +98,7 @@ namespace ParkingLotTest
                 tickets.Add(ticket);
             }
 
-            string newTicket = parkingLot.Park("newCar");
+            NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => parkingLot.Park("newCar"));
 
             //Then
             for (int i = 0; i < parkingLotCapacity; i++)
@@ -108,7 +106,7 @@ namespace ParkingLotTest
                 Assert.NotNull(tickets[i]);
             }
 
-            Assert.Null(newTicket);
+            Assert.Equal("No available position.", noPositionException.Message);
         }
     }
 }
