@@ -7,6 +7,17 @@
     {
         private Dictionary<string, string> ticketsToCars = new Dictionary<string, string>();
 
+        private int capacity = 20;
+
+        public ParkingLot()
+        {
+        }
+
+        public ParkingLot(int capacity)
+        {
+            this.capacity = capacity;
+        }
+
         public string FetchCar(string ticket)
         {
             if (ticket == null)
@@ -30,9 +41,16 @@
 
         public string Park(string car)
         {
-            string ticket = "-" + car;
-            ticketsToCars[ticket] = car;
-            return ticket;
+            if (ticketsToCars.Count < capacity)
+            {
+                string ticket = "-" + car;
+                ticketsToCars[ticket] = car;
+                return ticket;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

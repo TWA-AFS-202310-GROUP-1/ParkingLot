@@ -10,11 +10,11 @@ namespace ParkingLotTest
         public void Should_return_a_ticket_when_park_car_given_a_car()
         {
             //given
-            ParkingLot parking = new ParkingLot();
-            string ticket = parking.Park("car");
+            ParkingLot parkingLot = new ParkingLot();
+            string ticket = parkingLot.Park("car");
 
             //when
-            string result = parking.FetchCar(ticket);
+            string result = parkingLot.FetchCar(ticket);
 
             //then
             Assert.Equal("-car", ticket);
@@ -24,13 +24,13 @@ namespace ParkingLotTest
         public void Should_return_correct_car_when_fetch_car_given_a_ticket()
         {
             //given
-            ParkingLot parking = new ParkingLot();
-            string ticket = parking.Park("car");
-            string ticket2 = parking.Park("car2");
+            ParkingLot parkingLot = new ParkingLot();
+            string ticket = parkingLot.Park("car");
+            string ticket2 = parkingLot.Park("car2");
 
             //when
-            string result = parking.FetchCar(ticket);
-            string result2 = parking.FetchCar(ticket2);
+            string result = parkingLot.FetchCar(ticket);
+            string result2 = parkingLot.FetchCar(ticket2);
 
             //then
             //test the fetched cars
@@ -42,16 +42,16 @@ namespace ParkingLotTest
         public void Should_return_null_when_fetch_car_given_an_unvalid_ticket()
         {
             //given
-            ParkingLot parking = new ParkingLot();
-            string ticket = parking.Park("car");
+            ParkingLot parkingLot = new ParkingLot();
+            string ticket = parkingLot.Park("car");
             string unvalidTicket = "x";
             string unvalidTicket2 = null;
 
             //when
             //ticket number is wrong
-            string result = parking.FetchCar(unvalidTicket);
+            string result = parkingLot.FetchCar(unvalidTicket);
             //ticket is null
-            string result2 = parking.FetchCar(unvalidTicket2);
+            string result2 = parkingLot.FetchCar(unvalidTicket2);
 
             //then
             Assert.Null(result);
@@ -59,22 +59,39 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_return_null_when_get_car_in_a_parkinglot_with_cars_given_a_used_ticket()
+        public void Should_return_null_when_fetch_car_given_a_used_ticket()
         {
             //given
-            ParkingLot parking = new ParkingLot();
-            string ticket = parking.Park("car");
-            string ticket2 = parking.Park("car2");
+            ParkingLot parkingLot = new ParkingLot();
+            string ticket = parkingLot.Park("car");
+            string ticket2 = parkingLot.Park("car2");
 
             //when
-            string result = parking.FetchCar(ticket);
-            string result2 = parking.FetchCar(ticket);
+            string result = parkingLot.FetchCar(ticket);
+            string result2 = parkingLot.FetchCar(ticket);
 
             //then
             //can fetch the correct car
             Assert.Equal("car", result);
             //cannot fetch any car since ticket is used
             Assert.Null(result2);
+        }
+
+        [Fact]
+        public void Should_not_return_ticket_when_park_car_given_a_full_parking_lot()
+        {
+            //given
+            ParkingLot parkingLot = new ParkingLot(10);
+            for (int i = 0; i < 10; i++)
+            {
+                string tempTicket = parkingLot.Park($"car{i}");
+            }
+
+            //when
+            string noTicket = parkingLot.Park("car10");
+
+            //then
+            Assert.Null(noTicket);
         }
     }
 }
