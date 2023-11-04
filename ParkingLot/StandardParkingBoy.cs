@@ -33,7 +33,7 @@ namespace ParkingLotManagement
                 }
             }
 
-            this.currentLot = this.parkingLots[-1];
+            this.currentLot = this.parkingLots[this.parkingLots.Count - 1];
         }
 
         public string Park(string car)
