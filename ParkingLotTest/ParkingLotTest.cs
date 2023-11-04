@@ -38,19 +38,6 @@ namespace ParkingLotTest
             Assert.Equal("Car2", car2);
         }
 
-
-        [Fact]
-        public void Should_return_nothing_when_capacity_is_full()
-        {
-            var parkingLot = new ParkingLot();
-            for (int i = 0; i < 10; i++)
-            {
-                parkingLot.Park("car" + i);
-            }
-            string ticket = parkingLot.Park("car10");
-            Assert.Null(ticket);
-        }
-
         [Fact]
         public void Should_return_null_when_park_given_null()
         {
@@ -79,13 +66,25 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void FetchCar_ShouldThrowException_WhenTicketHasBeenUsed()
+        public void Should_return_correct_message_when_fetch_with_a_used_ticket()
         {
             var parkingLot = new ParkingLot();
             var ticket = parkingLot.Park("Car1");
             parkingLot.Fetch(ticket); 
             var exception = Assert.Throws<WrongTicketException>(() => parkingLot.Fetch(ticket));
             Assert.Equal("Unrecognized parking ticket.", exception.Message);
+        }
+
+        [Fact]
+        public void Should_return_correct_message_when_park_given_a_full_parkingtlot()
+        {
+            var parkingLot = new ParkingLot();
+            for (int i = 0; i < 10; i++)
+            {
+                parkingLot.Park("car" + i);
+            }
+            var exception = Assert.Throws<NoPositionException>(() => parkingLot.Park("Car10"));
+            Assert.Equal("No available position.", exception.Message);
         }
     }
 }

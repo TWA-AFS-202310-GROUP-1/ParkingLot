@@ -15,7 +15,11 @@ namespace ParkingLotSystem
         public string Park(string car)
         {
             if(car == null) return null;
-            if (ticketCarPairs.Count < capacity && !parkedCars.Contains(car))
+            if (!(ticketCarPairs.Count < capacity))
+            {
+                throw new NoPositionException("No available position.");
+            }
+            if (!parkedCars.Contains(car))
             {
                 string ticket = GenerateTicket();
                 ticketCarPairs.Add(ticket, car);
