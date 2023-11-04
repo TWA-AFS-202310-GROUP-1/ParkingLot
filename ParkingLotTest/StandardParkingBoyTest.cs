@@ -8,7 +8,7 @@ using Xunit;
 
 namespace ParkingLotTest
 {
-    public class ParkingBoyTest
+    public class StandardParkingBoyTest
     {
         [Theory]
         [InlineData("car")]
@@ -16,7 +16,7 @@ namespace ParkingLotTest
         {
             //Given
             ParkingLot parkingLot = new ParkingLot();
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLot);
 
             //When
             string ticket = parkingBoy.Park(carName);
@@ -32,7 +32,7 @@ namespace ParkingLotTest
         {
             //Given
             ParkingLot parkingLot = new ParkingLot();
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLot);
 
             //When
             string ticket1 = parkingBoy.Park(carName1);
@@ -51,7 +51,7 @@ namespace ParkingLotTest
         {
             //Given
             ParkingLot parkingLot = new ParkingLot();
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLot);
 
             //When
             WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => parkingBoy.Fetch(wrongTicket));
@@ -65,7 +65,7 @@ namespace ParkingLotTest
         {
             //Given
             ParkingLot parkingLot = new ParkingLot();
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLot);
 
             //When
             string car = parkingBoy.Fetch(null);
@@ -80,7 +80,7 @@ namespace ParkingLotTest
         {
             //Given
             ParkingLot parkingLot = new ParkingLot();
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLot);
 
             //When
             string ticket = parkingBoy.Park(carName);
@@ -96,7 +96,7 @@ namespace ParkingLotTest
         {
             //Given
             ParkingLot parkingLot = new ParkingLot();
-            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+            StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLot);
 
             //When
             List<string> tickets = new List<string>();

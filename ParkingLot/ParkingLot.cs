@@ -12,22 +12,22 @@ namespace ParkingLotManagement
         private Dictionary<string, string> ticket2Car = new Dictionary<string, string>();
         private int parkCount = 0;
         private List<string> usedTickets = new List<string>();
-        private int parkingCapicity;
-        private int parkTimes = 0;
+        private int parkingCapacity;
+        //private int parkTimes = 0;
 
         public ParkingLot()
         {
-            this.parkingCapicity = 10;
+            this.parkingCapacity = 10;
         }
 
         public ParkingLot(int parkingCapicity)
         {
-            this.parkingCapicity = parkingCapicity;
+            this.parkingCapacity = parkingCapicity;
         }
 
         public int GetParkingCapicity()
         {
-            return parkingCapicity;
+            return parkingCapacity;
         }
 
         public string? Fetch(string? ticket)
@@ -40,6 +40,7 @@ namespace ParkingLotManagement
             if (ticket2Car.ContainsKey(ticket) && !usedTickets.Contains(ticket))
             {
                 usedTickets.Add(ticket);
+                this.parkingCapacity++;
                 return ticket2Car[ticket];
             }
 
@@ -48,13 +49,13 @@ namespace ParkingLotManagement
 
         public string? Park(string car)
         {
-            if (this.parkTimes == parkingCapicity)
+            if (this.parkingCapacity == 0)
             {
                 throw new NoPositionException("No available position.");
             }
 
             parkCount++;
-            this.parkTimes++;
+            this.parkingCapacity--;
             string ticket = "T-" + car + parkCount.ToString();
             ticket2Car.Add(ticket, car);
             return ticket;
