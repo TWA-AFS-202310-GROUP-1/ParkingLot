@@ -29,6 +29,12 @@ namespace Day5
             }
         }
 
+        public int AvailableSpots()
+        {
+            // 剩余可用停车位数量等于总停车位减去已停车辆数量
+            return 10 - ticket2car.Count;
+        }
+
         public string Park(string car)
         {
             if (ticket2car.Count() < 10)
