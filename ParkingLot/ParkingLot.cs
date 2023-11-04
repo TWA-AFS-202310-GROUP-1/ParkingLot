@@ -25,6 +25,11 @@ namespace ParkingLotManagement
             this.parkingCapicity = parkingCapicity;
         }
 
+        public int GetParkingCapicity()
+        {
+            return parkingCapicity;
+        }
+
         public string? Fetch(string? ticket)
         {
             if (ticket == null)

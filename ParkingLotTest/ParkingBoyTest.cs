@@ -90,5 +90,31 @@ namespace ParkingLotTest
             //Then
             Assert.Equal("Unrecognized parking ticket.", wrongTicketException.Message);
         }
+
+        [Fact]
+        public void Should_get_reminder_when_no_parking_lot_left()
+        {
+            //Given
+            ParkingLot parkingLot = new ParkingLot();
+            ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+            //When
+            List<string> tickets = new List<string>();
+            for (int i = 0; i < 10; i++)
+            {
+                string ticket = parkingLot.Park("car" + i.ToString());
+                tickets.Add(ticket);
+            }
+
+            NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => parkingLot.Park("newCar"));
+
+            //Then
+            for (int i = 0; i < 10; i++)
+            {
+                Assert.NotNull(tickets[i]);
+            }
+
+            Assert.Equal("No available position.", noPositionException.Message);
+        }
     }
 }
