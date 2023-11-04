@@ -22,7 +22,7 @@
         {
             if (ticket == null)
             {
-                return null;
+                throw new UnvalidTicketException("Unrecognized parking ticket.");
             }
             else
             {
@@ -34,7 +34,7 @@
                 }
                 else
                 {
-                    return null;
+                    throw new UnvalidTicketException("Unrecognized parking ticket.");
                 }
             }
         }
@@ -49,7 +49,7 @@
             }
             else
             {
-                return null;
+                throw new NoPositionException("No available position.");
             }
         }
     }

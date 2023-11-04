@@ -3,6 +3,7 @@ namespace ParkingLotTest
     using ParkingLot;
     using System.Reflection;
     using Xunit;
+    using Xunit.Sdk;
 
     public class ParkingLotTest
     {
@@ -39,27 +40,23 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_return_null_when_fetch_car_given_an_unvalid_ticket()
+        public void Should_throw_exception_when_fetch_car_given_an_unvalid_ticket()
         {
             //given
             ParkingLot parkingLot = new ParkingLot();
             string ticket = parkingLot.Park("car");
+
+            //when
             string unvalidTicket = "x";
             string unvalidTicket2 = null;
 
-            //when
-            //ticket number is wrong
-            string result = parkingLot.FetchCar(unvalidTicket);
-            //ticket is null
-            string result2 = parkingLot.FetchCar(unvalidTicket2);
-
             //then
-            Assert.Null(result);
-            Assert.Null(result2);
+            Assert.Throws<UnvalidTicketException>(() => parkingLot.FetchCar(unvalidTicket));
+            Assert.Throws<UnvalidTicketException>(() => parkingLot.FetchCar(unvalidTicket2));
         }
 
         [Fact]
-        public void Should_return_null_when_fetch_car_given_a_used_ticket()
+        public void Should_throw_exception_when_fetch_car_given_a_used_ticket()
         {
             //given
             ParkingLot parkingLot = new ParkingLot();
@@ -68,30 +65,29 @@ namespace ParkingLotTest
 
             //when
             string result = parkingLot.FetchCar(ticket);
-            string result2 = parkingLot.FetchCar(ticket);
 
             //then
-            //can fetch the correct car
+            //can fetch the correct car at first time
             Assert.Equal("car", result);
             //cannot fetch any car since ticket is used
-            Assert.Null(result2);
+            Assert.Throws<UnvalidTicketException>(() => parkingLot.FetchCar(ticket));
         }
 
         [Fact]
         public void Should_not_return_ticket_when_park_car_given_a_full_parking_lot()
         {
             //given
-            ParkingLot parkingLot = new ParkingLot(10);
-            for (int i = 0; i < 10; i++)
+            ParkingLot parkingLot = new ParkingLot(3);
+            for (int i = 0; i < 3; i++)
             {
                 string tempTicket = parkingLot.Park($"car{i}");
+                Assert.Equal($"-car{i}", tempTicket);
             }
 
             //when
-            string noTicket = parkingLot.Park("car10");
 
             //then
-            Assert.Null(noTicket);
+            Assert.Throws<NoPositionException>(() => parkingLot.Park("car3"));
         }
     }
 }
