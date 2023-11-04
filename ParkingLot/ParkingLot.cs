@@ -23,15 +23,18 @@ namespace ParkingLotManagement
 
         public string? Fetch(string? ticket)
         {
-            if (ticket != null && ticket2Car.ContainsKey(ticket) && !usedTickets.Contains(ticket))
+            if (ticket == null)
+            {
+                return null;
+            }
+
+            if (ticket2Car.ContainsKey(ticket) && !usedTickets.Contains(ticket))
             {
                 usedTickets.Add(ticket);
                 return ticket2Car[ticket];
             }
-            else
-            {
-                return null;
-            }
+
+            throw new WrongTicketException("Unrecognized parking ticket.");
         }
 
         public string? Park(string car)
