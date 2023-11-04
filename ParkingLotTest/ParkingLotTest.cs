@@ -142,5 +142,34 @@ namespace ParkingLotTest
             WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => parkingBoy.ParkByParkingBoy("newcar"));
             Assert.Equal("No available position.", wrongTicketException.Message);
         }
+
+        [Fact]
+        public void Should_park_into_first_parkinglot_when_first_prakingplot_is_not_full()
+        {
+            ParkingLot parkingLot1 = new ParkingLot();
+            ParkingLot parkingLot2 = new ParkingLot();
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+
+            string ticket = standardParkingBoy.StandardPark("newcar");
+
+            Assert.Equal("T-newcar-in-parkingLot1", ticket);
+        }
+
+        [Fact]
+        public void Should_park_into_second_parkinglot_when_first_prakingplot_is_full()
+        {
+            ParkingLot parkingLot1 = new ParkingLot();
+            ParkingLot parkingLot2 = new ParkingLot();
+            StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+
+            for (int i = 0; i < 10; i++)
+            {
+                standardParkingBoy.StandardPark("car" + i);
+            }
+
+            string ticket = standardParkingBoy.StandardPark("newcar");
+
+            Assert.Equal("T-newcar-in-parkingLot2", ticket);
+        }
     }
 }
