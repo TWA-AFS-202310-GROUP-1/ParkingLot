@@ -139,5 +139,23 @@ namespace ParkingLotTest
             //Then
             Assert.Equal("No available position.", noPositionException.Message);
         }
+
+        [Fact]
+        public void Should_get_null_when_fetch_car_without_ticket()
+        {
+            //Given
+            List<ParkingLot> parkingLot = new List<ParkingLot>(new ParkingLot[2]
+           {
+                new ParkingLot(1),
+                new ParkingLot(10),
+           });
+            StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLot);
+
+            //When
+            string car = parkingBoy.Fetch(null);
+
+            //Then
+            Assert.Null(car);
+        }
     }
 }
