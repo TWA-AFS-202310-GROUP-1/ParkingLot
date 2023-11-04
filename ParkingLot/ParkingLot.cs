@@ -18,7 +18,12 @@ namespace ParkingLotSystem
         }
         public string Fetch(string ticket)
         {
-            return ticketCarPairs[ticket];
+            if(ticketCarPairs.ContainsKey(ticket))
+            {
+                return ticketCarPairs[ticket];
+            }
+            return null;
+            
         }
         private string GenerateTicket()
         {
