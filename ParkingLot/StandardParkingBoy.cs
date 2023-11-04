@@ -22,24 +22,25 @@ namespace ParkingLotManagement
             this.parkingLots = parkingLots;
         }
 
-        public void SearchLot()
+        public virtual ParkingLot SearchLot()
         {
+            ParkingLot currentLot = this.parkingLots[this.parkingLots.Count - 1];
             foreach (var lot in parkingLots)
             {
                 if (lot.GetParkingCapicity() > 0)
                 {
-                    this.currentLot = lot;
-                    return;
+                    currentLot = lot;
+                    break;
                 }
             }
 
-            this.currentLot = this.parkingLots[this.parkingLots.Count - 1];
+            return currentLot;
         }
 
         public string Park(string car)
         {
-            this.SearchLot();
-            return currentLot.Park(car) + "," + parkingLots.IndexOf(this.currentLot).ToString();
+            ParkingLot currentLot = SearchLot();
+            return currentLot.Park(car) + "," + parkingLots.IndexOf(currentLot).ToString();
         }
 
         public string? Fetch(string ticket)
