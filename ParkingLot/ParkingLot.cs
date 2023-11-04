@@ -11,17 +11,19 @@
         {
             if (ticket == null)
             {
-                return "null ticket";
+                return null;
             }
             else
             {
                 if (ticketsToCars.ContainsKey(ticket))
                 {
-                    return ticketsToCars[ticket];
+                    string fetchedCar = ticketsToCars[ticket];
+                    ticketsToCars.Remove(ticket);
+                    return fetchedCar;
                 }
                 else
                 {
-                    return "wrong ticket";
+                    return null;
                 }
             }
         }
