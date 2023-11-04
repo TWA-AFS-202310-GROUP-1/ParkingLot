@@ -1,6 +1,7 @@
 namespace ParkingLotTest
 {
     using ParkingLotSystem;
+    using System.IO;
     using System.Net.Sockets;
     using Xunit;
 
@@ -44,6 +45,17 @@ namespace ParkingLotTest
             string car = parkingLot.Fetch(wrongTicket);
             Assert.Null(car);
 
+        }
+
+        [Fact]
+        public void Should_return_nothing_when_fetch_with_a_used_ticket()
+        {
+            var parkingLot = new ParkingLot();
+            var ticket = parkingLot.Park("Car1");
+            string car = parkingLot.Fetch(ticket);
+            string carExpectednull = parkingLot.Fetch(ticket);
+            Assert.Equal("Car1", car);
+            Assert.Null(carExpectednull);
         }
     }
 }

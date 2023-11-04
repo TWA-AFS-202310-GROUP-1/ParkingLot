@@ -20,7 +20,9 @@ namespace ParkingLotSystem
         {
             if(ticketCarPairs.ContainsKey(ticket))
             {
-                return ticketCarPairs[ticket];
+                string car = ticketCarPairs[ticket];
+                ticketCarPairs.Remove(ticket);
+                return car;
             }
             return null;
             
