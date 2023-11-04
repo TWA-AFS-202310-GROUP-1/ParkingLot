@@ -6,24 +6,29 @@ namespace ParkingLotTest
     public class ParkingLotTest
     {
         [Fact]
-        public void Should_return_ticket_when_park_in_a_parkinglot_given_a_car()
+        public void Should_return_correct_car_when_get_car_in_a_parkinglot_with_cars_given_a_ticket()
         {
+            //given
             ParkingLot parking = new ParkingLot();
             string ticket = parking.Park("car");
-            Assert.Equal("q", ticket);
-        }
+            string ticket2 = parking.Park("car2");
+            string unvalidTicket = "x";
+            string unvalidTicket2 = null;
 
-        [Fact]
-        public void Should_return_correct_car_when_get_car_in_a_parkinglot_given_a_ticket()
-        {
-            ParkingLot parking = new ParkingLot();
-            string ticket = parking.Park("car");
+            //when
+            string result = parking.FetchCar(ticket);
+            string result2 = parking.FetchCar(ticket2);
 
-            string result = parking.GetCar(ticket);
-            string result2 = parking.GetCar("x");
-
+            //then
+            //test the tickets
+            Assert.Equal("-car", ticket);
+            Assert.Equal("-car2", ticket2);
+            //test the fetched cars
             Assert.Equal("car", result);
-            Assert.Equal("wrong ticket", result2);
+            Assert.Equal("car2", result2);
+            //test unvlid tickets
+            Assert.Equal("wrong ticket", parking.FetchCar(unvalidTicket));
+            Assert.Equal("null ticket", parking.FetchCar(unvalidTicket2));
         }
     }
 }
