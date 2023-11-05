@@ -9,6 +9,7 @@ namespace ParkingLotSystem
     public class ParkingLot
     {
         private readonly int capacity = 10;
+        public int AvailableCapacity { get { return capacity - parkedCars.Count; } }
         private Dictionary<string, string> ticketCarPairs = new Dictionary<string, string>();
         private HashSet<string> parkedCars = new HashSet<string>();
 

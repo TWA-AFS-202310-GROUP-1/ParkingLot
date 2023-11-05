@@ -8,7 +8,7 @@ using ParkingLotSystem;
 
 namespace ParkingLotTest
 {
-    public class ParkingLotTestWithParkingBoyMultipleLotsMultipleLots
+    public class ParkingLotTestWithParkingBoyMultipleLots
     {
         [Fact]
         public void Should_Park_In_First_Lot_When_Both_Are_Empty()
