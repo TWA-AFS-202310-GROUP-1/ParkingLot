@@ -85,5 +85,10 @@
 
             return string.Join(" ", list);
         }
+
+        public int GetLeftPositions()
+        {
+            return capacity - ticketsToCars.Count;
+        }
     }
 }

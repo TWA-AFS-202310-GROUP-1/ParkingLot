@@ -50,7 +50,7 @@
             //when
             for (int i = 0; i < 10; i++)
             {
-                string tempTicket = standardParkingBoy.Park($"car{i}");
+                standardParkingBoy.Park($"car{i}");
             }
 
             //then
@@ -62,16 +62,14 @@
         {
             //given
             List<ParkingLot> parkingLots = new List<ParkingLot>();
-            ParkingLot lot1 = new ParkingLot(2);
-            ParkingLot lot2 = new ParkingLot(2);
-            parkingLots.Add(lot1);
-            parkingLots.Add(lot2);
+            parkingLots.Add(new ParkingLot(2));
+            parkingLots.Add(new ParkingLot(2));
             StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
 
             //when
             for (int i = 1; i < 5; i++)
             {
-                string tempTicket = standardParkingBoy.Park($"car{i}");
+                standardParkingBoy.Park($"car{i}");
             }
 
             //then
@@ -79,10 +77,13 @@
             Assert.Throws<NoPositionException>(() => standardParkingBoy.Park("car5"));
 
             //and when
-            string fetchedCar = standardParkingBoy.Fetch("-car2");
-            string fetchedCar2 = standardParkingBoy.Fetch("-car3");
-            string tempTicket1 = standardParkingBoy.Park("car5");
-            string tempTicket2 = standardParkingBoy.Park("car6");
+            standardParkingBoy.Fetch("-car2");
+            Assert.Equal("car1 | car3 car4", standardParkingBoy.ShowAllCars());
+            standardParkingBoy.Fetch("-car3");
+            Assert.Equal("car1 | car4", standardParkingBoy.ShowAllCars());
+
+            standardParkingBoy.Park("car5");
+            standardParkingBoy.Park("car6");
 
             //and then
             Assert.Equal("car1 car5 | car6 car4", standardParkingBoy.ShowAllCars());

@@ -12,10 +12,9 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot();
-            string ticket = parkingLot.Park("car");
 
             //when
-            string result = parkingLot.FetchCar(ticket);
+            string ticket = parkingLot.Park("car");
 
             //then
             Assert.Equal("-car", ticket);
@@ -44,7 +43,7 @@ namespace ParkingLotTest
         {
             //given
             ParkingLot parkingLot = new ParkingLot();
-            string ticket = parkingLot.Park("car");
+            parkingLot.Park("car");
 
             //when
             string unvalidTicket = "x";
@@ -89,6 +88,13 @@ namespace ParkingLotTest
             //then
             Assert.Equal("car0 car1 car2", parkingLot.ShowAllCars());
             Assert.Throws<NoPositionException>(() => parkingLot.Park("car3"));
+
+            //and when
+            parkingLot.FetchCar("-car0");
+            parkingLot.Park("car3");
+
+            //and then
+            Assert.Equal("car3 car1 car2", parkingLot.ShowAllCars());
         }
     }
 }
