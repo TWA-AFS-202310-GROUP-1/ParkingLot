@@ -18,7 +18,7 @@ namespace ParkingLotTest
 
             string ticket = boy.Park("car1");
 
-            Assert.Equal("T-car1", ticket);
+            Assert.Equal("1:T-car1", ticket);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace ParkingLotTest
             StandardParkingBoy boy = new StandardParkingBoy(parkingLot);
             string ticket1 = boy.Park("car1");
 
-            WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => boy.Fetch("WRONG"));
+            WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => boy.Fetch("1:WRONG"));
             Assert.Equal("Unrecognized parking ticket", wrongTicketException.Message);
         }
 
@@ -82,8 +82,23 @@ namespace ParkingLotTest
                 string ticket = boy.Park("car" + i.ToString());
             }
 
-            NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => boy.Park("new car"));
+            NoPositionException noPositionException = Assert.Throws<NoPositionException>(() => boy.Park("car11"));
             Assert.Equal("No available position.", noPositionException.Message);
+        }
+
+        [Fact]
+        public void Should_park_in_first_parking_lot_when_park_given_two_available()
+        {
+            List<ParkingLot> parkingLots = new List<ParkingLot>();
+            for (int i = 0; i < 2; i++)
+            {
+                parkingLots.Add(new ParkingLot());
+            }
+
+            StandardParkingBoy boy = new StandardParkingBoy(parkingLots);
+
+            string ticket = boy.Park("car1");
+            Assert.Equal("1:T-car1", ticket);
         }
     }
 }

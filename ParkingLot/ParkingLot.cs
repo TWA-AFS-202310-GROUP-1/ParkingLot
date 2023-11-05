@@ -10,7 +10,7 @@ namespace Day5
     {
         private string car;
         private Dictionary<string, string> ticket2Car = new Dictionary<string, string>();
-        private int capacity = 10;
+        public int Capacity { get; set; } = 10;
 
         public string Fetch(string ticket)
         {
@@ -31,10 +31,11 @@ namespace Day5
 
         public string Park(string car)
         {
-            if (ticket2Car.Count < 10)
+            if (Capacity > 0)
             {
                 string ticket = "T-" + car;
                 ticket2Car.Add(ticket, car);
+                Capacity--;
                 return ticket;
             }
             else
