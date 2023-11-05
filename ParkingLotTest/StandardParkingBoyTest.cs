@@ -100,5 +100,25 @@ namespace ParkingLotTest
             string ticket = boy.Park("car1");
             Assert.Equal("1:T-car1", ticket);
         }
+
+        [Fact]
+        public void Should_park_in_second_parking_lot_when_park_given_first_has_no_position()
+        {
+            List<ParkingLot> parkingLots = new List<ParkingLot>();
+            for (int i = 0; i < 2; i++)
+            {
+                parkingLots.Add(new ParkingLot());
+            }
+
+            StandardParkingBoy boy = new StandardParkingBoy(parkingLots);
+
+            for (int i = 0; i < 10; i++)
+            {
+                boy.Park("car" + i.ToString());
+            }
+
+            string ticket = boy.Park("car1");
+            Assert.Equal("2:T-car1", ticket);
+        }
     }
 }
