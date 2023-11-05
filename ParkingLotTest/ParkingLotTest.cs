@@ -7,21 +7,22 @@ namespace ParkingLotTest
 
     public class ParkingLotTest
     {
-        [Fact]
-        public void Should_return_a_ticket_when_park_car_given_a_car()
+        [Theory]
+        [InlineData("car")]
+        public void Should_return_a_ticket_when_park_given_a_car(string car)
         {
             //given
             ParkingLot parkingLot = new ParkingLot();
 
             //when
-            string ticket = parkingLot.Park("car");
+            string ticket = parkingLot.Park(car);
 
             //then
-            Assert.Equal("-car", ticket);
+            Assert.Equal($"-{car}", ticket);
         }
 
         [Fact]
-        public void Should_return_correct_car_when_fetch_car_given_a_ticket()
+        public void Should_return_correct_car_when_fetch_given_a_ticket()
         {
             //given
             ParkingLot parkingLot = new ParkingLot();
@@ -33,25 +34,23 @@ namespace ParkingLotTest
             string result2 = parkingLot.FetchCar(ticket2);
 
             //then
-            //test the fetched cars
             Assert.Equal("car", result);
             Assert.Equal("car2", result2);
         }
 
-        [Fact]
-        public void Should_throw_exception_when_fetch_car_given_an_unvalid_ticket()
+        [Theory]
+        [InlineData("x")]
+        [InlineData(null)]
+        public void Should_throw_exception_when_fetch_car_given_an_unvalid_ticket(string unvalidTicket)
         {
             //given
             ParkingLot parkingLot = new ParkingLot();
-            parkingLot.Park("car");
 
             //when
-            string unvalidTicket = "x";
-            string unvalidTicket2 = null;
+            parkingLot.Park("car");
 
             //then
             Assert.Throws<UnvalidTicketException>(() => parkingLot.FetchCar(unvalidTicket));
-            Assert.Throws<UnvalidTicketException>(() => parkingLot.FetchCar(unvalidTicket2));
         }
 
         [Fact]
@@ -60,7 +59,6 @@ namespace ParkingLotTest
             //given
             ParkingLot parkingLot = new ParkingLot();
             string ticket = parkingLot.Park("car");
-            string ticket2 = parkingLot.Park("car2");
 
             //when
             string result = parkingLot.FetchCar(ticket);
@@ -73,7 +71,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Should_not_return_ticket_when_park_car_given_a_full_parking_lot()
+        public void Should_not_return_ticket_when_park_given_a_full_parking_lot()
         {
             //given
             ParkingLot parkingLot = new ParkingLot(3);
@@ -81,20 +79,11 @@ namespace ParkingLotTest
             //when
             for (int i = 0; i < 3; i++)
             {
-                string tempTicket = parkingLot.Park($"car{i}");
-                Assert.Equal($"-car{i}", tempTicket);
+                parkingLot.Park($"car{i}");
             }
 
             //then
-            Assert.Equal("car0 car1 car2", parkingLot.ShowAllCars());
             Assert.Throws<NoPositionException>(() => parkingLot.Park("car3"));
-
-            //and when
-            parkingLot.FetchCar("-car0");
-            parkingLot.Park("car3");
-
-            //and then
-            Assert.Equal("car3 car1 car2", parkingLot.ShowAllCars());
         }
     }
 }
