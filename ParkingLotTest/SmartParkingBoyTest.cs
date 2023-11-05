@@ -44,5 +44,26 @@ namespace ParkingLotTest
             string ticket = boy.Park("newcar");
             Assert.Equal("2:T-newcar", ticket);
         }
+
+        [Fact]
+        public void Should_get_correct_car_when_fetch_given_ticket_in_two_parkinglots()
+        {
+            List<ParkingLot> parkingLots = new List<ParkingLot>();
+            for (int i = 0; i < 2; i++)
+            {
+                parkingLots.Add(new ParkingLot());
+            }
+
+            SmartParkingBoy boy = new SmartParkingBoy(parkingLots);
+
+            string ticket1 = boy.Park("car1");
+            string ticket2 = boy.Park("car2");
+
+            string car1 = boy.Fetch(ticket1);
+            string car2 = boy.Fetch(ticket2);
+
+            Assert.Equal("car1", car1);
+            Assert.Equal("car2", car2);
+        }
     }
 }

@@ -138,13 +138,13 @@ namespace ParkingLotTest
                 boy.Park("car" + (i + 1).ToString());
             }
 
-            string ticket2 = boy.Park("car1");
+            string ticket2 = boy.Park("car11");
 
             string car1 = boy.Fetch(ticket1);
             string car2 = boy.Fetch(ticket2);
 
             Assert.Equal("car1", car1);
-            Assert.Equal("car1", car2);
+            Assert.Equal("car11", car2);
         }
 
         [Fact]
