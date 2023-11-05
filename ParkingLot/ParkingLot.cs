@@ -19,7 +19,7 @@ namespace ParkingLot
         {
             if (this.carsInPark.Count >= this.capacity || car == null)
             {
-                return null;
+                throw new ParkingLotNoCapacityException();
             }
 
             var ticket = new Ticket();
@@ -31,7 +31,7 @@ namespace ParkingLot
         {
             if (!this.carsInPark.TryGetValue(ticket, out var car))
             {
-                return null;
+                throw new InvalidTicketException();
             }
 
             this.carsInPark.Remove(ticket);
@@ -50,6 +50,20 @@ namespace ParkingLot
             }
 
             public Guid Id { get; private set; }
+        }
+
+        public class ParkingLotNoCapacityException : Exception
+        {
+            public ParkingLotNoCapacityException() : base("No capacity for car now.")
+            {
+            }
+        }
+
+        public class InvalidTicketException : Exception
+        {
+            public InvalidTicketException() : base("Invalid parking ticket.")
+            {
+            }
         }
     }
 }

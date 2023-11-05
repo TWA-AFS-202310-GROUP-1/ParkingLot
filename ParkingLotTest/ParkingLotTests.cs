@@ -55,7 +55,7 @@ namespace ParkingLotTest
         }
 
         [Fact]
-        public void Get_null_when_fetch_car_given_wrong_ticket()
+        public void Get_exception_when_fetch_car_given_wrong_ticket()
         {
             // Given
             var parkingLot = new ParkingLot.ParkingLot(10);
@@ -64,14 +64,14 @@ namespace ParkingLotTest
             var wrongTicket = new Ticket();
 
             // When
-            var fetchedCar = parkingLot.Fetch(wrongTicket);
+            var exception = Assert.Throws<InvalidTicketException>(() => parkingLot.Fetch(wrongTicket));
 
             // Then
-            Assert.Null(fetchedCar);
+            Assert.Equal("Invalid parking ticket.", exception.Message);
         }
 
         [Fact]
-        public void Get_null_when_fetch_car_given_used_ticket()
+        public void Get_exception_when_fetch_car_given_used_ticket()
         {
             // Given
             var parkingLot = new ParkingLot.ParkingLot(10);
@@ -80,14 +80,14 @@ namespace ParkingLotTest
             parkingLot.Fetch(ticket);
 
             // When
-            var fetchedCar = parkingLot.Fetch(ticket);
+            var exception = Assert.Throws<InvalidTicketException>(() => parkingLot.Fetch(ticket));
 
             // Then
-            Assert.Null(fetchedCar);
+            Assert.Equal("Invalid parking ticket.", exception.Message);
         }
 
         [Fact]
-        public void Get_null_when_parkingLot_is_full()
+        public void Get_exception_when_parkingLot_is_full()
         {
             // Given
             var parkingLot = new ParkingLot.ParkingLot(1);
@@ -96,10 +96,10 @@ namespace ParkingLotTest
             parkingLot.ParkCar(car1);
 
             // When
-            var ticket = parkingLot.ParkCar(car2);
+            var exception = Assert.Throws<ParkingLotNoCapacityException>(() => parkingLot.ParkCar(car2));
 
             // Then
-            Assert.Null(ticket);
+            Assert.Equal("No capacity for car now.", exception.Message);
         }
     }
 }
