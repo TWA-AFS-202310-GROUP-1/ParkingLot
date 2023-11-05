@@ -1,9 +1,7 @@
 ﻿using ParkingLotManagement;
-using System;
+using ParkingLotManagement.Exception;
+using ParkingLotManagement.ParkingBoy;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ParkingLotTest

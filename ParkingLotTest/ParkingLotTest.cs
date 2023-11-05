@@ -1,6 +1,7 @@
 ﻿using Xunit;
 using ParkingLotManagement;
 using System.Collections.Generic;
+using ParkingLotManagement.Exception;
 
 namespace ParkingLotTest
 {

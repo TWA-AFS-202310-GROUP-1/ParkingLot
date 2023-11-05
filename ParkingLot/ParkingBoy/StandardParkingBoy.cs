@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using ParkingLotManagement.Exception;
+using ParkingLotManagement.Interface;
+using ParkingLotManagement.Strategy;
 
-namespace ParkingLotManagement
+namespace ParkingLotManagement.ParkingBoy
 {
     public class StandardParkingBoy
     {
-        //private ParkingLot parkingLot;
         private List<ParkingLot> parkingLots = new List<ParkingLot> { };
         private ParkingLot currentLot;
         public StandardParkingBoy(ParkingLot parkingLot)
         {
-            this.parkingLots.Add(parkingLot);
+            parkingLots.Add(parkingLot);
         }
 
         public StandardParkingBoy(List<ParkingLot> parkingLots)
@@ -22,28 +19,14 @@ namespace ParkingLotManagement
             this.parkingLots = parkingLots;
         }
 
-        public virtual ParkingLot SearchLot()
+        public virtual string Park(string car)
         {
-            ParkingLot currentLot = this.parkingLots[this.parkingLots.Count - 1];
-            foreach (var lot in parkingLots)
-            {
-                if (lot.GetParkingCapicity() > 0)
-                {
-                    currentLot = lot;
-                    break;
-                }
-            }
-
-            return currentLot;
-        }
-
-        public string Park(string car)
-        {
-            ParkingLot currentLot = SearchLot();
+            IStrategy strategy = new StandardStrategy();
+            ParkingLot currentLot = strategy.SearchLot(parkingLots);
             return currentLot.Park(car) + "," + parkingLots.IndexOf(currentLot).ToString();
         }
 
-        public string? Fetch(string ticket)
+        public string Fetch(string ticket)
         {
             if (ticket == null)
             {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace ParkingLotManagement
+namespace ParkingLotManagement.Exception
 {
     [Serializable]
-    public class NoPositionException : Exception
+    public class NoPositionException : SystemException
     {
         public NoPositionException()
         {
@@ -14,7 +14,7 @@ namespace ParkingLotManagement
         {
         }
 
-        public NoPositionException(string message, Exception innerException) : base(message, innerException)
+        public NoPositionException(string message, RankException innerException) : base(message, innerException)
         {
         }
 

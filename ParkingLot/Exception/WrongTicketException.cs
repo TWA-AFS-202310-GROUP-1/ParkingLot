@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace ParkingLotManagement
+namespace ParkingLotManagement.Exception
 {
     [Serializable]
-    public class WrongTicketException : Exception
+    public class WrongTicketException : SystemException
     {
         public WrongTicketException()
         {
@@ -14,7 +14,7 @@ namespace ParkingLotManagement
         {
         }
 
-        public WrongTicketException(string message, Exception innerException) : base(message, innerException)
+        public WrongTicketException(string message, SystemException innerException) : base(message, innerException)
         {
         }
 
