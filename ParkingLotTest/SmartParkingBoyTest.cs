@@ -19,7 +19,7 @@ namespace ParkingLotTest
                 parkingLots.Add(new ParkingLot());
             }
 
-            SmartParkingBoy boy = new SmartParkingBoy(parkingLots);
+            ParkingBoy boy = new ParkingBoy(parkingLots, new SmartParkingStrategy());
 
             string ticket = boy.Park("car1");
             Assert.Equal("1:T-car1", ticket);
@@ -34,7 +34,7 @@ namespace ParkingLotTest
                 parkingLots.Add(new ParkingLot());
             }
 
-            SmartParkingBoy boy = new SmartParkingBoy(parkingLots);
+            ParkingBoy boy = new ParkingBoy(parkingLots, new SmartParkingStrategy());
 
             for (int i = 0; i < 3; i++)
             {
@@ -54,7 +54,7 @@ namespace ParkingLotTest
                 parkingLots.Add(new ParkingLot());
             }
 
-            SmartParkingBoy boy = new SmartParkingBoy(parkingLots);
+            ParkingBoy boy = new ParkingBoy(parkingLots, new SmartParkingStrategy());
 
             string ticket1 = boy.Park("car1");
             string ticket2 = boy.Park("car2");
@@ -75,7 +75,7 @@ namespace ParkingLotTest
                 parkingLots.Add(new ParkingLot());
             }
 
-            SmartParkingBoy boy = new SmartParkingBoy(parkingLots);
+            ParkingBoy boy = new ParkingBoy(parkingLots, new SmartParkingStrategy());
             string ticket1 = boy.Park("car1");
 
             WrongTicketException wrongTicketException = Assert.Throws<WrongTicketException>(() => boy.Fetch("2:T-car1"));
@@ -91,7 +91,7 @@ namespace ParkingLotTest
                 parkingLots.Add(new ParkingLot());
             }
 
-            SmartParkingBoy boy = new SmartParkingBoy(parkingLots);
+            ParkingBoy boy = new ParkingBoy(parkingLots, new SmartParkingStrategy());
 
             string ticket1 = boy.Park("car1");
             string car1 = boy.Fetch(ticket1);
@@ -109,7 +109,7 @@ namespace ParkingLotTest
                 parkingLots.Add(new ParkingLot());
             }
 
-            SmartParkingBoy boy = new SmartParkingBoy(parkingLots);
+            ParkingBoy boy = new ParkingBoy(parkingLots, new SmartParkingStrategy());
 
             for (int i = 0; i < 20; i++)
             {
