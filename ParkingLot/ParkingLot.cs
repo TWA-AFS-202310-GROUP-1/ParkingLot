@@ -26,6 +26,7 @@ namespace Day5
 
             string car = ticket2Car[ticket];
             ticket2Car.Remove(ticket);
+            Capacity++;
             return car;
         }
 
