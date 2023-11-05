@@ -1,6 +1,6 @@
 namespace ParkingLotTest
 {
-    using ParkingLot;
+    using Day5;
     using Xunit;
 
     public class UnitTest1
