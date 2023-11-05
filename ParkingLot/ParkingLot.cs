@@ -1,41 +1,55 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Runtime.ConstrainedExecution;
 
 namespace ParkingLot
 {
     public class ParkingLot
     {
-        private Dictionary<string, string> parkingMap;
+        private readonly int capacity;
+        private readonly Dictionary<Ticket, Car> carsInPark;
 
-        public ParkingLot()
+        public ParkingLot(int capacity)
         {
-            parkingMap = new Dictionary<string, string>();
+            this.capacity = capacity;
+            this.carsInPark = new Dictionary<Ticket, Car>();
         }
 
-        public string ParkCar(string car)
+        public Ticket ParkCar(Car car)
         {
-            string ticket = GenerateTicket();
-            parkingMap[ticket] = car;
-            return ticket;
-        }
-
-        public string FetchCar(string ticket)
-        {
-            if (parkingMap.ContainsKey(ticket))
-            {
-                string car = parkingMap[ticket];
-                parkingMap.Remove(ticket);
-                return car;
-            }
-            else
+            if (this.carsInPark.Count >= this.capacity || car == null)
             {
                 return null;
             }
+
+            var ticket = new Ticket();
+            this.carsInPark.Add(ticket, car);
+            return ticket;
         }
 
-        private string GenerateTicket()
+        public Car Fetch(Ticket ticket)
         {
-            return Guid.NewGuid().ToString();
+            if (!this.carsInPark.TryGetValue(ticket, out var car))
+            {
+                return null;
+            }
+
+            this.carsInPark.Remove(ticket);
+            return car;
+        }
+
+        public class Car
+        {
+        }
+
+        public class Ticket
+        {
+            public Ticket()
+            {
+                Id = Guid.NewGuid();
+            }
+
+            public Guid Id { get; private set; }
         }
     }
 }
