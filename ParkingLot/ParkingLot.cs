@@ -15,6 +15,14 @@ namespace ParkingLot
             this.carsInPark = new Dictionary<Ticket, Car>();
         }
 
+        public int AvailableCapacity
+        {
+            get
+            {
+                return this.capacity - this.carsInPark.Count;
+            }
+        }
+
         public Ticket ParkCar(Car car)
         {
             if (this.carsInPark.Count >= this.capacity || car == null)

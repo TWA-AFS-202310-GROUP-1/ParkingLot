@@ -21,6 +21,16 @@ namespace ParkingLot
             this.parkingLots = new List<ParkingLot> { parkingLot };
         }
 
+        public List<ParkingLot> ParkingLots
+        {
+            get
+            {
+                return parkingLots;
+            }
+        }
+
+        protected List<ParkingLot> ParkingLot { get; set; }
+
         public Ticket ParkCar(Car car)
         {
             foreach (var parkingLot in parkingLots)
