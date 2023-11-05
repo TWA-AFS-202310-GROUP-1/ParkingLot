@@ -9,21 +9,46 @@ namespace ParkingLot
 {
     public class ParkingBoy
     {
-        private readonly ParkingLot parkingLot;
+        private readonly List<ParkingLot> parkingLots;
+
+        public ParkingBoy(IEnumerable<ParkingLot> parkingLots)
+        {
+            this.parkingLots = parkingLots.ToList();
+        }
 
         public ParkingBoy(ParkingLot parkingLot)
         {
-            this.parkingLot = parkingLot;
+            this.parkingLots = new List<ParkingLot> { parkingLot };
         }
 
         public Ticket ParkCar(Car car)
         {
-            return this.parkingLot.ParkCar(car);
+            foreach (var parkingLot in parkingLots)
+            {
+                if (parkingLot.HasAvailablePosition())
+                {
+                    return parkingLot.ParkCar(car);
+                }
+            }
+
+            throw new ParkingLotNoCapacityException();
         }
 
         public Car Fetch(Ticket ticket)
         {
-            return this.parkingLot.Fetch(ticket);
+            foreach (var parkingLot in parkingLots)
+            {
+                try
+                {
+                    return parkingLot.Fetch(ticket);
+                }
+                catch (InvalidTicketException)
+                {
+                    // Continue checking the next parking lot
+                }
+            }
+
+            throw new InvalidTicketException();
         }
     }
 }

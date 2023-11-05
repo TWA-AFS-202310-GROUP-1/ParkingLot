@@ -38,6 +38,11 @@ namespace ParkingLot
             return car;
         }
 
+        public bool HasAvailablePosition()
+        {
+            return this.carsInPark.Count < this.capacity;
+        }
+
         public class Car
         {
         }
