@@ -10,6 +10,7 @@ namespace ParkingLotTest
 {
     public class SmartParkingBoyTest
     {
+        [Fact]
         public void Should_park_in_first_parking_lot_when_park_given_two_availabl()
         {
             List<ParkingLot> parkingLots = new List<ParkingLot>();
@@ -18,10 +19,30 @@ namespace ParkingLotTest
                 parkingLots.Add(new ParkingLot());
             }
 
-            StandardParkingBoy boy = new StandardParkingBoy(parkingLots);
+            SmartParkingBoy boy = new SmartParkingBoy(parkingLots);
 
             string ticket = boy.Park("car1");
             Assert.Equal("1:T-car1", ticket);
+        }
+
+        [Fact]
+        public void Should_park_in_parking_lot_with_more_positions_when_park_given_two_parkinglots()
+        {
+            List<ParkingLot> parkingLots = new List<ParkingLot>();
+            for (int i = 0; i < 2; i++)
+            {
+                parkingLots.Add(new ParkingLot());
+            }
+
+            SmartParkingBoy boy = new SmartParkingBoy(parkingLots);
+
+            for (int i = 0; i < 3; i++)
+            {
+                boy.Park("car" + i.ToString());
+            }
+
+            string ticket = boy.Park("newcar");
+            Assert.Equal("2:T-newcar", ticket);
         }
     }
 }
